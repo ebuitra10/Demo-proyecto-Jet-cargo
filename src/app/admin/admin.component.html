@@ -1,0 +1,83 @@
+<h2>Panel de Gestión de Envíos</h2>
+
+<button (click)="router.navigate(['/cliente'])">
+  Vista cliente
+</button>
+
+<div style="margin-bottom: 10px;">
+  <label>
+    Buscar por Warehouse:
+    <input
+      type="text"
+      [(ngModel)]="busquedaWarehouse"
+      (input)="filtrar()"
+      placeholder="Ej: WH-001"
+    />
+  </label>
+
+  <button (click)="subirExcelMock()" style="margin-left: 10px;">
+    Cargar Excel (Demo)
+  </button>
+</div>
+
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>Warehouse</th>
+      <th>Manifiesto</th>
+      <th>Cliente</th>
+      <th>Teléfono</th>
+      <th>Estado</th>
+      <th>Observaciones</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let envio of enviosFiltrados">
+      <td><strong>{{ envio.warehouse }}</strong></td>
+      <td>{{ envio.manifiesto }}</td>
+      <td>{{ envio.cliente }}</td>
+      <td>{{ envio.telefono }}</td>
+      <td>{{ envio.estado }}</td>
+      <td>{{ envio.observaciones }}</td>
+      <td>
+        <button (click)="editar(envio)">Editar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- MODAL SIMPLE -->
+<div *ngIf="envioEditando" style="border:1px solid #000; padding:10px; margin-top:20px;">
+  <h3>Editar Envío</h3>
+
+  <p><strong>Warehouse:</strong> {{ envioEditando.warehouse }}</p>
+
+  <label>
+    Estado:
+    <select [(ngModel)]="envioEditando.estado">
+      <option>En origen (Bogotá)</option>
+      <option>En origen (Miami)</option>
+      <option>En origen (Los Ángeles)</option>
+      <option>En alistamiento</option>
+      <option>Despachado</option>
+      <option>En trayecto</option>
+      <option>Proceso aduanero</option>
+      <option>En destino</option>
+    </select>
+  </label>
+
+  <br /><br />
+
+  <label>
+    Observaciones:
+    <br />
+    <textarea [(ngModel)]="envioEditando.observaciones"></textarea>
+  </label>
+
+  <br /><br />
+
+  <button (click)="guardar()">Guardar</button>
+  <button (click)="cancelar()">Cancelar</button>
+</div>

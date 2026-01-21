@@ -1,0 +1,28 @@
+<h2>Consulta tu paquete</h2>
+
+<p>Ingresa tu número de guía (Warehouse)</p>
+
+<input
+  type="text"
+  [(ngModel)]="warehouseInput"
+  placeholder="Ej: WH-001"
+/>
+
+<button (click)="buscar()">Buscar</button>
+
+<hr />
+
+<div *ngIf="resultado">
+  <h3>Resultado</h3>
+  <p><strong>Warehouse:</strong> {{ resultado.warehouse }}</p>
+  <p><strong>Estado:</strong> {{ resultado.estado }}</p>
+  <p><strong>Notas:</strong> {{ resultado.observaciones }}</p>
+</div>
+
+<p *ngIf="noEncontrado" style="color: red;">
+  No se encontró información para ese número de guía.
+</p>
+
+<br />
+
+<button (click)="irAdmin()">Ir al panel de administración</button>
